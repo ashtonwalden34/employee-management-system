@@ -39,29 +39,25 @@ function action() {
         .then(function(answer) {
             switch(answer.action) {
                 case "View departments":
-                    // display departments
+                    viewDepartments();
                     break;
                 case "View roles":
-                    // display roles
+                    viewRoles();
                     break;
                 case "View employees":
-                    // display employees
+                    viewEmployees();
                     break;
                 case "Add department":
-                    // prompt user for info about department
-                    // add data to database
+                    addDepartment();
                     break;
                 case "Add role":
-                    // prompt user for info about role
-                    // add data to database
+                    addRole();
                     break;
                 case "Add employee":
-                    // prompt user for info about employee
-                    // add data to database
+                    addEmployee();
                     break;
                 case "Update roles":
-                    // prompt user for info about updated role
-                    // update data in database
+                    updateRole();
                     break
             }
         });
@@ -92,5 +88,5 @@ function addEmployee() {
 }
 
 function updateRole() {
-    
+
 }
