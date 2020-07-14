@@ -160,11 +160,12 @@ function addEmployee() {
             {
                 name: "manager_id",
                 type: "input",
-                message: "Please enter the employee's manager's id"
+                message: "Please enter the employee id of this employee's manager"
             }
         ])
         .then(function(answer) {
             // function to add employee to database based on user input
+
         })
 
 };
