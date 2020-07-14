@@ -85,12 +85,24 @@ function viewDepartments() {
 
 // function to retrieve roles from database and display to user
 function viewRoles() {
-
+    var query = "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
+    connection.query(query, function(err, res) {
+        for (var i = 0; i < res.length; i++) {
+            console.log(res)
+        }
+        action();
+    });
 };
 
 // function to retrieve employees from database and display to user
 function viewEmployees() {
-
+    var query = "SELECT id, title, salary, deptID FROM employee_role"
+    connection.query(query, function(err, res) {
+        for (var i = 0; i < res.length; i++) {
+            console.log(res)
+        }
+        action();
+    });
 };
 
 // function to allow the user to add a department to the database
