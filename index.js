@@ -107,16 +107,65 @@ function viewEmployees() {
 
 // function to allow the user to add a department to the database
 function addDepartment() {
-
+    inquirer
+        .prompt(
+            {
+            name: "deptName",
+            type: "input",
+            message: "What department woudld you like to add?"
+        })
 };
 
 // function to allow the user to add a role to the database
 function addRole() {
-
+    inquirer
+        .prompt([
+            {
+                name: "title",
+                type: "input",
+                message: "Enter the title of the role you would like to add"
+            },
+            {
+                name: "salary",
+                typle: "input",
+                message: "Enter the salary for the role you would like to add"
+            },
+            {
+                name: "deptID",
+                type: "input",
+                message: "Enter the department id for the department that the role belongs to"
+            }
+        ])
 };
 
 // function to allow the user to add an employee to the database
 function addEmployee() {
+    inquirer
+        .prompt([
+            {
+                name: "first_name",
+                type: "input",
+                message: "Please enter the new employee's first name"
+            },
+            {
+                name: "last_name",
+                type: "input",
+                message: "Please enter the new employee's last name"
+            },
+            {
+                name: "role_id",
+                type: "input",
+                message: "Please enter the id of the corresponding role the employee has"
+            },
+            {
+                name: "manager_id",
+                type: "input",
+                message: "Please enter the employee's manager's id"
+            }
+        ])
+        .then(function(answer) {
+            // function to add employee to database based on user input
+        })
 
 };
 
