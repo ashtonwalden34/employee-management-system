@@ -32,8 +32,36 @@ function action() {
                 "Add department", 
                 "Add role", 
                 "Add employee", 
-                "Update roles",
-                "Delete employee"
+                "Update roles"
             ]
+        })
+        .then(function(answer) {
+            switch(answer.action) {
+                case "View departments":
+                    // display departments
+                    break;
+                case "View roles":
+                    // display roles
+                    break;
+                case "View employees":
+                    // display employees
+                    break;
+                case "Add department":
+                    // prompt user for info about department
+                    // add data to database
+                    break;
+                case "Add role":
+                    // prompt user for info about role
+                    // add data to database
+                    break;
+                case "Add employee":
+                    // prompt user for info about employee
+                    // add data to database
+                    break;
+                case "Update roles":
+                    // prompt user for info about updated role
+                    // update data in database
+                    break
+            }
         })
 }
