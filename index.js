@@ -16,6 +16,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if(err) throw err;
     console.log("connected as id " + connection.threadId);
+    action();
     connection.end();
 })
 
@@ -63,5 +64,33 @@ function action() {
                     // update data in database
                     break
             }
-        })
+        });
+}
+
+function viewDepartments() {
+
+}
+
+function viewRoles() {
+
+}
+
+function viewEmployees() {
+
+}
+
+function addDepartment() {
+
+}
+
+function addRole() {
+
+}
+
+function addEmployee() {
+
+}
+
+function updateRole() {
+    
 }
