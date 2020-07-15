@@ -10,4 +10,4 @@ VALUES ("test_1_lead", 100000.00, 1), ("test_1_employee", 50000.00, 2), ("test_2
 
 -- Inserts dummy data into 'employee table'
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Test", "Testerson", 1), ("John", "Testerson", 2, 1), ("Bayley", "Testerson", 3, 1);
+VALUES ("Test", "Testerson", 1, 2), ("John", "Testerson", 2, 1), ("Bayley", "Testerson", 3, 1);

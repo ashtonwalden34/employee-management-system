@@ -74,7 +74,7 @@ function action() {
 
 // function to retrieve departments from database and display to user
 function viewDepartments() {
-    var query = "SELECT id, deptname FROM department"
+    var query = "SELECT * FROM department"
     connection.query(query, function(err, res) {
         for (var i = 0; i < res.length; i++) {
             console.log(res)
@@ -85,7 +85,7 @@ function viewDepartments() {
 
 // function to retrieve roles from database and display to user
 function viewRoles() {
-    var query = "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
+    var query = "SELECT * FROM employee"
     connection.query(query, function(err, res) {
         for (var i = 0; i < res.length; i++) {
             console.log(res)
@@ -96,7 +96,7 @@ function viewRoles() {
 
 // function to retrieve employees from database and display to user
 function viewEmployees() {
-    var query = "SELECT id, title, salary, deptID FROM employee_role"
+    var query = "SELECT * FROM employee_role"
     connection.query(query, function(err, res) {
         for (var i = 0; i < res.length; i++) {
             console.log(res)
@@ -114,11 +114,31 @@ function addDepartment() {
             type: "input",
             message: "What department woudld you like to add?"
         })
+        .then(function(answer) {
+            // function to add department to database
+            connection.query("INSERT INTO department (deptName) VALUES (?)",[answer.deptName], function(err, res) {
+                console.log(err);
+                console.log(res);
+                action();
+            })
+            
+        })
 };
 
 // function to allow the user to add a role to the database
 function addRole() {
-    inquirer
+
+    connection.query("SELECT * FROM department", function(err, res) {
+        console.log(err, res);
+        var deptNames = []
+        for (i = 0; i < res.length; i++) {
+            console.log('??',res[i].deptName)
+            deptNames.push(res[i].deptName);
+
+        }
+        console.log(deptNames);
+
+        inquirer
         .prompt([
             {
                 name: "title",
@@ -131,11 +151,28 @@ function addRole() {
                 message: "Enter the salary for the role you would like to add"
             },
             {
-                name: "deptID",
-                type: "input",
-                message: "Enter the department id for the department that the role belongs to"
+                name: "deptName",
+                type: "list",
+                message: "Pick a Dept it belongs too",
+                choices: deptNames
             }
         ])
+        .then(function(answer) {
+            console.log('this is our answer', answer)
+            // function to add role to database
+            var deptId;
+            for (let i = 0; i < res.length; i++) {
+                if (res[i].deptName === answer.deptName) {
+                    deptId = res[i].id
+                }
+            }
+            console.log('DEPT ID for our new role', deptId)
+
+            // db time
+        })
+
+    })
+    
 };
 
 // function to allow the user to add an employee to the database
@@ -172,5 +209,22 @@ function addEmployee() {
 
 // function to allow the user to update an employee's role in the database
 function updateRole() {
+    connection.query("SELECT * FROM employee", function(err, res) {
+        console.log(err, res);
+        var employeeNames = [];
+        for (let i = 0; i < res.length; i++) {
+            console.log('test ---,', res[i].first_name, res[i].last_name);
+            employeeNames.push(res[i].first_name, res[i].last_name);
+        }
+        console.log(employeeNames)
 
+        inquirer
+            .prompt([
+                {
+                    name: "employee",
+                    type: "list",
+                    choices: employeeNames
+                }
+            ])
+    })
 };
