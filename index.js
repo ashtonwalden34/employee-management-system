@@ -186,7 +186,31 @@ function addRole() {
 
 // function to allow the user to add an employee to the database
 function addEmployee() {
-    inquirer
+
+    connection.query("SELECT * FROM employee_role", 
+    function(err, res) {
+        console.log(err, res);
+        var roles = []
+        for (let i = 0; i < res.length; i++) {
+            console.log("test --  " + res[i].title)
+            roles.push(res[i].title);  
+        }
+        console.log(roles)
+
+        connection.query("SELECT * FROM employee", function(err, res) {
+            console.log(err);
+            console.log(res);
+    
+            var employees = [];
+            for (let i = 0; i < res.length; i++) {
+                
+                employees.push(res[i].first_name + ' ' + res[i].last_name);
+    
+                console.log("These are the employees " + employees);
+            }
+            console.log(employees);
+        
+        inquirer
         .prompt([
             {
                 name: "first_name",
@@ -200,21 +224,24 @@ function addEmployee() {
             },
             {
                 name: "role_id",
-                type: "input",
-                message: "Please enter the id of the corresponding role the employee has"
+                type: "list",
+                message: "Please select the role of the new employee",
+                choices: roles
             },
             {
                 name: "manager_id",
-                type: "input",
-                message: "Please enter the employee id of this employee's manager"
+                type: "list",
+                message: "Please select the new employee's manager",
+                choices: employees
             }
         ])
-        .then(function(answer) {
-            // function to add employee to database based on user input
-
-        })
-
+    });
+    });
 };
+
+
+
+        
 
 // function to allow the user to update an employee's role in the database
 function updateRole() {
@@ -254,6 +281,6 @@ function updateRole() {
 };
 
 // function to end inquirer and stop connection
-function endAction() {
-    connection.end();
-};
+// function endAction() {
+//     connection.end();
+// }
