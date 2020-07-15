@@ -169,11 +169,12 @@ function addRole() {
                     deptId = res[i].id
                 }
             }
+            
             console.log('DEPT ID for our new role', deptId)
             // db time
             // adds new role to database
-            connection.query("INSERT INTO employee_role (title, salary) values (?, ?)", 
-            [answer.title, answer.salary, answer.deptName], 
+            connection.query("INSERT INTO employee_role (title, salary, deptID) values (?, ?, ?)", 
+            [answer.title, answer.salary, deptId], 
             function(err, res) {
                 console.log(err);
                 console.log(res);
