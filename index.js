@@ -235,6 +235,10 @@ function addEmployee() {
                 choices: employees
             }
         ])
+        .then(function(answer) {
+            // function to add new employee to database
+            console.log('hit .then function')
+        });
     });
     });
 };
