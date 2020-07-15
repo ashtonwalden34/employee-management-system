@@ -170,12 +170,17 @@ function addRole() {
                 }
             }
             console.log('DEPT ID for our new role', deptId)
-
             // db time
-        })
-
-    })
-    
+            // adds new role to database
+            connection.query("INSERT INTO employee_role (title, salary) values (?, ?)", 
+            [answer.title, answer.salary, answer.deptName], 
+            function(err, res) {
+                console.log(err);
+                console.log(res);
+                action();  
+            });          
+        });
+    });
 };
 
 // function to allow the user to add an employee to the database
@@ -235,7 +240,11 @@ function updateRole() {
                     choices: fullNames
                 }
             ])
+            console.log(answer)
+
             .then(function(answer) {
+                console.log("This is the update role answer: " + answer.text)
+
                 // function to get user answer and turn it into ID
                 // once employee has been identified by role then prompt user to select role to update
                 // then pass updated role to database
