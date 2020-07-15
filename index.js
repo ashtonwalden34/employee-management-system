@@ -223,13 +223,13 @@ function addEmployee() {
                 message: "Please enter the new employee's last name"
             },
             {
-                name: "role_id",
+                name: "role_title",
                 type: "list",
                 message: "Please select the role of the new employee",
                 choices: roles
             },
             {
-                name: "manager_id",
+                name: "manager",
                 type: "list",
                 message: "Please select the new employee's manager",
                 choices: employees
@@ -238,6 +238,24 @@ function addEmployee() {
         .then(function(answer) {
             // function to add new employee to database
             console.log('hit .then function')
+
+            // takes user input for role and converts it to the corresponding id
+            var roleID;
+            for (let i = 0; i < res.length; i++) {
+                if (res[i].title === answer.role_title) {
+                    roleID = res[i].id
+                }
+            }
+
+            // takes the user input for manager and converts it to the corresponding id
+            var managerID;
+            for (let i = 0; i < res.length; i++) {
+                if (res[i].first_name + ' ' + res[i].last_name === answer.manager) {
+                    managerID = res[i].id;
+                }
+            }
+            console.log("this is the role ID " + roleID);
+            console.log("this is the manager's id " + managerID);
         });
     });
     });
