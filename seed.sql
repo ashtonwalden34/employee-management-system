@@ -1,12 +1,12 @@
 -- uses employee management system database
 USE ems_db;
 -- Inserts dummy data into 'department' table
-INSERT INTO department (deptName)
-VALUES ("test_1"), ("test_2"), ("test_3");
+INSERT INTO department (dept_name)
+VALUES ("dept_1"), ("dept_2"), ("dept_3");
 
 -- Inserts dummy data into 'employee_role' table
-INSERT INTO employee_role (title, salary, deptID)
-VALUES ("test_1_lead", 100000.00, 1), ("test_1_employee", 50000.00, 2), ("test_2_employee", 45000.00, 3);
+INSERT INTO employee_role (title, salary, dept_id)
+VALUES ("role_1", 100000.00, 1), ("role_2", 50000.00, 2), ("role_3", 45000.00, 3);
 
 -- Inserts dummy data into 'employee table'
 INSERT INTO employee (first_name, last_name, role_id, manager_id)

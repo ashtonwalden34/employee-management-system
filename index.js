@@ -88,7 +88,7 @@ function viewDepartments() {
 
 // function to retrieve roles from database and display to user
 function viewRoles() {
-    var query = "SELECT * FROM employee"
+    var query = "SELECT * FROM employee_role"
     connection.query(query, function(err, res) {
         for (var i = 0; i < res.length; i++) {
             console.log(res)
@@ -99,7 +99,7 @@ function viewRoles() {
 
 // function to retrieve employees from database and display to user
 function viewEmployees() {
-    var query = "SELECT * FROM employee_role"
+    var query = "SELECT * FROM employee"
     connection.query(query, function(err, res) {
         for (var i = 0; i < res.length; i++) {
             console.log(res)
@@ -113,18 +113,17 @@ function addDepartment() {
     inquirer
         .prompt(
             {
-            name: "deptName",
+            name: "dept_name",
             type: "input",
             message: "What department woudld you like to add?"
         })
         .then(function(answer) {
             // function to add department to database
-            connection.query("INSERT INTO department (deptName) VALUES (?)",[answer.deptName], function(err, res) {
+            connection.query("INSERT INTO department (dept_name) VALUES (?)",[answer.dept_name], function(err, res) {
                 console.log(err);
                 console.log(res);
                 action();
             })
-            
         })
 };
 
@@ -135,8 +134,8 @@ function addRole() {
         console.log(err, res);
         var deptNames = []
         for (i = 0; i < res.length; i++) {
-            console.log('??',res[i].deptName)
-            deptNames.push(res[i].deptName);
+            console.log('??',res[i].dept_name)
+            deptNames.push(res[i].dept_name);
 
         }
         console.log(deptNames);
@@ -165,15 +164,15 @@ function addRole() {
             // function to add role to database
             var deptId;
             for (let i = 0; i < res.length; i++) {
-                if (res[i].deptName === answer.deptName) {
-                    deptId = res[i].id
+                if (res[i].dept_name === answer.dept_name) {
+                    deptId = res[i].dept_id
                 }
             }
             
             console.log('DEPT ID for our new role', deptId)
             // db time
             // adds new role to database
-            connection.query("INSERT INTO employee_role (title, salary, deptID) values (?, ?, ?)", 
+            connection.query("INSERT INTO employee_role (title, salary, dept_id) values (?, ?, ?)", 
             [answer.title, answer.salary, deptId], 
             function(err, res) {
                 console.log(err);
@@ -243,7 +242,7 @@ function addEmployee() {
             var roleID;
             for (let i = 0; i < res.length; i++) {
                 if (res[i].title === answer.role_title) {
-                    roleID = res[i].id
+                    roleID = res[i].role_id
                 }
             }
 
@@ -251,7 +250,7 @@ function addEmployee() {
             var managerID;
             for (let i = 0; i < res.length; i++) {
                 if (res[i].first_name + ' ' + res[i].last_name === answer.manager) {
-                    managerID = res[i].id;
+                    managerID = res[i].employee_id;
                 }
             }
             console.log("this is the role ID " + roleID);
@@ -293,7 +292,7 @@ function updateRole() {
             console.log(answer)
 
             .then(function(answer) {
-                console.log("This is the update role answer: " + answer.text)
+                console.log("This is the update role answer: " + answer)
 
                 // function to get user answer and turn it into ID
                 // once employee has been identified by role then prompt user to select role to update
