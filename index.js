@@ -222,14 +222,10 @@ function updateRole() {
             fullNames.push(res[i].first_name + ' ' + res[i].last_name);
 
             console.log("These are the full names " + fullNames);
-            // console.log('test ---,', res[i].first_name, res[i].last_name);
-
-            // console.log(res[i].first_name + res[i].last_name);
         }
-        
-        // console.log(fullNames);
+    
 
-        console.log(fullNames, {'maxArrayLength': null})
+        console.log(fullNames);
 
         inquirer
             .prompt([
@@ -239,6 +235,11 @@ function updateRole() {
                     choices: fullNames
                 }
             ])
+            .then(function(answer) {
+                // function to get user answer and turn it into ID
+                // once employee has been identified by role then prompt user to select role to update
+                // then pass updated role to database
+            })
     })
 };
 
