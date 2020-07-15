@@ -150,7 +150,7 @@ function addRole() {
             },
             {
                 name: "salary",
-                typle: "input",
+                type: "input",
                 message: "Enter the salary for the role you would like to add"
             },
             {
@@ -216,27 +216,27 @@ function updateRole() {
         console.log(err);
         console.log(res);
 
-        var fullName = [];
+        var fullNames = [];
         for (let i = 0; i < res.length; i++) {
-            var fullName = [];
             
-            fullName.push(res[i].first_name + ' ' + res[i].last_name);
+            fullNames.push(res[i].first_name + ' ' + res[i].last_name);
 
-            console.log("These are the full names " + fullName);
+            console.log("These are the full names " + fullNames);
             // console.log('test ---,', res[i].first_name, res[i].last_name);
-            
-               
-            
+
             // console.log(res[i].first_name + res[i].last_name);
         }
-        console.log(fullName)
+        
+        // console.log(fullNames);
+
+        console.log(fullNames, {'maxArrayLength': null})
 
         inquirer
             .prompt([
                 {
                     name: "employee",
                     type: "list",
-                    choices: fullName[i]
+                    choices: fullNames
                 }
             ])
     })
