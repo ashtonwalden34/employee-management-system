@@ -68,6 +68,9 @@ function action() {
                 case "Update roles":
                     updateRole();
                     break;
+                case "Exit":
+                    endAction();
+                    break;
             }
         });
 }
@@ -210,21 +213,36 @@ function addEmployee() {
 // function to allow the user to update an employee's role in the database
 function updateRole() {
     connection.query("SELECT * FROM employee", function(err, res) {
-        console.log(err, res);
-        var employeeNames = [];
+        console.log(err);
+        console.log(res);
+
+        var fullName = [];
         for (let i = 0; i < res.length; i++) {
-            console.log('test ---,', res[i].first_name, res[i].last_name);
-            employeeNames.push(res[i].first_name, res[i].last_name);
+            var fullName = [];
+            
+            fullName.push(res[i].first_name + ' ' + res[i].last_name);
+
+            console.log("These are the full names " + fullName);
+            // console.log('test ---,', res[i].first_name, res[i].last_name);
+            
+               
+            
+            // console.log(res[i].first_name + res[i].last_name);
         }
-        console.log(employeeNames)
+        console.log(fullName)
 
         inquirer
             .prompt([
                 {
                     name: "employee",
                     type: "list",
-                    choices: employeeNames
+                    choices: fullName[i]
                 }
             ])
     })
+};
+
+// function to end inquirer and stop connection
+function endAction() {
+    connection.end();
 };
