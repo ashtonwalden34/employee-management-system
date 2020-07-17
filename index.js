@@ -255,7 +255,13 @@ function addEmployee() {
             }
             console.log("this is the role ID " + roleID);
             console.log("this is the manager's id " + managerID);
+        
+        connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) values (?, ?, ?, ?)",
+        [answer.first_name, answer.last_name, roleID, managerID],
+        function(err, res) {
+            console.log(err, res);
         });
+    });
     });
     });
 };
