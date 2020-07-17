@@ -218,6 +218,16 @@ function addRole() {
 // function to allow the user to add an employee to the database
 function addEmployee() {
 
+    connection.query("SELECT * FROM employee", function(err, res) {
+        // console.log(err);
+        // console.log(res);
+
+        var employees = [];
+        for (let i = 0; i < res.length; i++) {   
+            employees.push('Name: ' + res[i].first_name + ' ' + res[i].last_name + ' ' + 'Id: ' + res[i].employee_id)
+        }
+        // console.log(employees);
+
     connection.query("SELECT * FROM employee_role", 
     function(err, res) {
         // console.log(err, res);
@@ -227,20 +237,6 @@ function addEmployee() {
             roles.push(res[i].title);  
         }
         // console.log("these are the roles " + roles)
-        
-
-        connection.query("SELECT * FROM employee", function(err, res) {
-            // console.log(err);
-            // console.log(res);
-    
-            var employees = [];
-            for (let i = 0; i < res.length; i++) {
-                
-                employees.push(res[i].first_name + ' ' + res[i].last_name);
-    
-                // console.log("These are the employees " + employees);
-            }
-            // console.log(employees);
         
         inquirer
         .prompt([
@@ -275,14 +271,10 @@ function addEmployee() {
                     roleID = res[i].role_id
                 }
             }
-            // takes the user input for manager and converts it to the corresponding id
-            var managerID;
-            for (let i = 0; i < res.length; i++) {
-                if (res[i].first_name + ' ' + res[i].last_name === answer.manager) {
-                    managerID = res[i].employee_id;
-                }
-            }
+            // takes the user input for manager and splits it to get the corresponding id
+            var managerID = answer.manager.split(' ')[4];
          
+        // adds new employee to database
         connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) values (?, ?, ?, ?)",
         [answer.first_name, answer.last_name, roleID, managerID],
         function(err, res) {
@@ -316,9 +308,6 @@ function updateRole() {
             rolesList.push(res[i].title);
         }
 
-        // console.log(fullNames);
-        // console.log(roles);
-
         inquirer
             .prompt([
                 {
@@ -338,12 +327,11 @@ function updateRole() {
                 // console.log(answer.employee)
                 //console.log(res)
 
+                // splits the user selected answer for employee to get the id value
                 var employeeID = answer.employee.split(" ")[4];
-                console.log(employeeID);
+                // console.log(employeeID);
 
-                
-                     // console.log(employeeID);
-
+                // converts role from title to id
                 var updatedRoleID
                 for (let i = 0; i < res.length; i++) {
                     if(res[i].title === answer.updatedRole) {
@@ -351,6 +339,8 @@ function updateRole() {
                     }
                     // console.log(updatedRoleID)  
                 }
+
+                // updates the role field in the employee table to hold new id
                 connection.query(
                 "UPDATE employee SET role_id = ? WHERE employee_id = ?",
                 [updatedRoleID, employeeID],
@@ -360,7 +350,6 @@ function updateRole() {
                     } else {
                         console.log("Errors: " + err);
                     }
-            
                     action();
                     })  
             })
