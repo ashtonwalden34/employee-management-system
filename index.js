@@ -275,7 +275,6 @@ function addEmployee() {
                     roleID = res[i].role_id
                 }
             }
-
             // takes the user input for manager and converts it to the corresponding id
             var managerID;
             for (let i = 0; i < res.length; i++) {
@@ -302,41 +301,74 @@ function addEmployee() {
 // function to allow the user to update an employee's role in the database
 function updateRole() {
     connection.query("SELECT * FROM employee", function(err, res) {
-        console.log(err);
-        console.log(res);
-
-        var fullNames = [];
+        // console.log(err);
+        // console.log(res);
+        var employeeList = [];
         for (let i = 0; i < res.length; i++) {
-            
-            fullNames.push(res[i].first_name + ' ' + res[i].last_name);
-
-            // console.log("These are the full names " + fullNames);
+            employeeList.push('Name: ' + res[i].first_name + ' ' + res[i].last_name + ' ' + 'Id: ' + res[i].employee_id);
         }
-    
 
-        console.log(fullNames);
+    connection.query("SELECT * FROM employee_role", function(err, res) {
+        // console.log(err);
+        // console.log(res);
+        var rolesList = []
+        for (let i = 0; i < res.length; i++) {
+            rolesList.push(res[i].title);
+        }
+
+        // console.log(fullNames);
+        // console.log(roles);
 
         inquirer
             .prompt([
                 {
                     name: "employee",
                     type: "list",
-                    choices: fullNames
+                    message: "Please select the employee whose role you would like to change",
+                    choices: employeeList
+                },
+                {
+                    name: "updatedRole",
+                    type: "list",
+                    message: "Please select the new role you would like to assign",
+                    choices: rolesList
                 }
-            ])
-            console.log(answer)
+               
+            ]).then(function(answer) {
+                // console.log(answer.employee)
+                //console.log(res)
 
-            .then(function(answer) {
-                // console.log("This is the update role answer: " + answer)
+                var employeeID = answer.employee.split(" ")[4];
+                console.log(employeeID);
 
-                // function to get user answer and turn it into ID
-                // once employee has been identified by role then prompt user to select role to update
-                // then pass updated role to database
+                
+                     // console.log(employeeID);
+
+                var updatedRoleID
+                for (let i = 0; i < res.length; i++) {
+                    if(res[i].title === answer.updatedRole) {
+                        updatedRoleID = res[i].role_id
+                    }
+                    // console.log(updatedRoleID)  
+                }
+                connection.query(
+                "UPDATE employee SET role_id = ? WHERE employee_id = ?",
+                [updatedRoleID, employeeID],
+                function(err, res) {
+                    if(err === null) {
+                        console.log("Succesfully updated employee role");
+                    } else {
+                        console.log("Errors: " + err);
+                    }
+            
+                    action();
+                    })  
             })
     })
+});
 };
 
 // function to end inquirer and stop connection
- function endAction() {
-     connection.end();
- }
+//  function endAction() {
+//      connection.end();
+//  }\
