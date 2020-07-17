@@ -369,6 +369,6 @@ function updateRole() {
 };
 
 // function to end inquirer and stop connection
-//  function endAction() {
-//      connection.end();
-//  }\
+function endAction() {
+    connection.end();
+};
