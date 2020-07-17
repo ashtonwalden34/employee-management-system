@@ -80,7 +80,11 @@ function viewDepartments() {
     var query = "SELECT * FROM department"
     connection.query(query, function(err, res) {
         for (var i = 0; i < res.length; i++) {
-            console.log(res)
+            // console.log(res)
+            console.log(
+                "Department ID: " + res[i].dept_id + ' || ' +
+                "Department Title: " + res[i].dept_name
+                );
         }
         action();
     });
@@ -91,7 +95,13 @@ function viewRoles() {
     var query = "SELECT * FROM employee_role"
     connection.query(query, function(err, res) {
         for (var i = 0; i < res.length; i++) {
-            console.log(res)
+            // console.log(res)
+            console.log(
+                "Role ID: " + res[i].role_id + ' || ' +
+                "Role: " + res[i].title + ' || ' +
+                "Salary: $" + res[i].salary + ' || ' +
+                "Department ID: " + res[i].dept_id
+            )
         }
         action();
     });
@@ -102,7 +112,13 @@ function viewEmployees() {
     var query = "SELECT * FROM employee"
     connection.query(query, function(err, res) {
         for (var i = 0; i < res.length; i++) {
-            console.log(res)
+           // console.log(res)
+           console.log(
+               "Employee ID: " + res[i].employee_id + ' || ' +
+               "Name: " + res[i].first_name + ' ' + res[i].last_name + ' || ' +
+               "Role ID: " + res[i].role_id + ' || ' +
+               "Manger ID: " + res[i].manager_id
+           )
         }
         action();
     });
@@ -194,7 +210,8 @@ function addEmployee() {
             console.log("test --  " + res[i].title)
             roles.push(res[i].title);  
         }
-        console.log(roles)
+        console.log("these are the roles " + roles)
+        
 
         connection.query("SELECT * FROM employee", function(err, res) {
             console.log(err);
@@ -239,7 +256,7 @@ function addEmployee() {
             console.log('hit .then function')
 
             // takes user input for role and converts it to the corresponding id
-            var roleID;
+            var roleID;            
             for (let i = 0; i < res.length; i++) {
                 if (res[i].title === answer.role_title) {
                     roleID = res[i].role_id
@@ -253,9 +270,7 @@ function addEmployee() {
                     managerID = res[i].employee_id;
                 }
             }
-            console.log("this is the role ID " + roleID);
-            console.log("this is the manager's id " + managerID);
-        
+         
         connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) values (?, ?, ?, ?)",
         [answer.first_name, answer.last_name, roleID, managerID],
         function(err, res) {
