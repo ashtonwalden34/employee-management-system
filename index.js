@@ -40,7 +40,8 @@ function action() {
                 "Add department", 
                 "Add role", 
                 "Add employee", 
-                "Update roles"
+                "Update roles",
+                "Exit"
             ]
         })
         // .then switch statement function based on user selection
@@ -323,6 +324,6 @@ function updateRole() {
 };
 
 // function to end inquirer and stop connection
-// function endAction() {
-//     connection.end();
-// }
+ function endAction() {
+     connection.end();
+ }
