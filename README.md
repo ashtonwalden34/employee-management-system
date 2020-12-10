@@ -11,5 +11,5 @@ This node based app allows the user to create, update, view, and delete an emplo
 - mySQL
 
 # Links
-[GitHub Repository](https://github.com/ashtonwalden34/employee-management-system)
-[Video Demo of App](https://drive.google.com/file/d/1_owe8KCxh9Yah4te--o_kWMX5ABJlMuA/view?usp=sharing)
+- [GitHub Repository](https://github.com/ashtonwalden34/employee-management-system)
+- [Video Demo of App](https://drive.google.com/file/d/1_owe8KCxh9Yah4te--o_kWMX5ABJlMuA/view?usp=sharing)
